@@ -1,0 +1,12 @@
+{
+  "name": "devops-cicd-project",
+  "version": "1.0.0",
+  "description": "Learning Git & CI/CD Pipeline",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
