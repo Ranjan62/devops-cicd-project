@@ -28,4 +28,6 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm test
+  env:
+    TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
+  run: npm test
