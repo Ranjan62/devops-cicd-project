@@ -24,5 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run test
+        env:
+          Test_API_KEY: ${{ secrets.TEST_API_KEY }}
         run: npm test
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test-report.html
