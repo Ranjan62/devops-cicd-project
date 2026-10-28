@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+
   pull_request:
     branches:
       - master
@@ -29,11 +30,17 @@ jobs:
 
       - name: Run test
         env:
-          Test_API_KEY: ${{ secrets.TEST_API_KEY }}
+          TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
         run: npm test
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report
-          path: test-report.html
+
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devops-cicd-app .
