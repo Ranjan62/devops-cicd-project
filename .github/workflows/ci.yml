@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+
   pull_request:
     branches:
       - master
@@ -24,5 +25,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run test
+        env:
+          TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
         run: npm test
+
+
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devops-cicd-app .
